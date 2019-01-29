@@ -1,0 +1,5 @@
+#pragma once
+// __func__ ?
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
+// __FUNCTION__ ?
+#cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_
