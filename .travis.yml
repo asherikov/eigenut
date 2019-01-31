@@ -1,0 +1,23 @@
+language: cpp
+
+notifications:
+    email:
+        recipients:
+            - asherikov@yandex.com
+        on_success: always
+        on_failure: always
+
+jobs:
+    include:
+
+      - os: linux
+        dist: trusty
+        c
+        addons:
+            apt:
+                update: true
+                packages:
+                  - libeigen3-dev
+
+        script:
+          - make test
