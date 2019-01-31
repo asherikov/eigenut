@@ -12,7 +12,7 @@ jobs:
 
       - os: linux
         dist: trusty
-        c
+
         addons:
             apt:
                 update: true

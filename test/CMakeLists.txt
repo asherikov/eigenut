@@ -1,5 +1,6 @@
 set(TEST_LIBS "")
 set(TEST_TARGETS "")
+include(eigenut_add_test)
 
 # --------------
 # required for tests
@@ -47,9 +48,6 @@ set(TEST_TARGETS "")
 # --------------
 
 
-add_executable(inclusion "./inclusion.cpp")
-target_link_libraries(inclusion "${TEST_LIBS}")
-if (TEST_TARGETS)
-    add_dependencies(inclusion ${TEST_TARGETS})
-endif()
-add_test(NAME inclusion COMMAND inclusion)
+eigenut_add_test(inclusion "${TEST_LIBS}" "${TEST_TARGETS}")
+eigenut_add_test(blockmatrix "${TEST_LIBS}" "${TEST_TARGETS}")
+eigenut_add_test(misc "${TEST_LIBS}" "${TEST_TARGETS}")

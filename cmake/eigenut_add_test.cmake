@@ -1,0 +1,8 @@
+function(eigenut_add_test TEST_NAME LIBS DEPEND_TARGETS)
+    add_executable(${TEST_NAME} "./${TEST_NAME}.cpp")
+    target_link_libraries(${TEST_NAME} "${LIBS}")
+    if (DEPEND_TARGETS)
+        add_dependencies(${TEST_NAME} ${DEPEND_TARGETS})
+    endif()
+    add_test(NAME ${TEST_NAME} COMMAND ${TEST_NAME})
+endfunction(eigenut_add_test)
