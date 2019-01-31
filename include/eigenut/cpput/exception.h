@@ -12,6 +12,7 @@
 #define H_CPPUT_EXCEPTION
 
 #include <string>
+#include <stdexcept>
 
 #define CPPUT_THROW_EXCEPTION(exception_type, message) throw exception_type((message))
 

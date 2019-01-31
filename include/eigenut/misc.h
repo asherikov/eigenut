@@ -13,6 +13,9 @@
 #ifndef H_EIGENUT_MISC
 #define H_EIGENUT_MISC
 
+#include <vector>
+
+
 /**
  * @page eigenut eigenut
  *
