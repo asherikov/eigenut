@@ -18,7 +18,7 @@ set (CMAKE_VERBOSE_MAKEFILE     ON)
 cpput_config(   "${PROJECT_SOURCE_DIR}/include/eigenut/cpput/config.h.in"
                 "${PROJECT_SOURCE_DIR}/include/eigenut/cpput/config.h")
 
-cmakeut_compiler_flags("c++11")
+cmakeut_compiler_flags("c++03")
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKEUT_CXX_FLAGS} -g")
 # --------------
 

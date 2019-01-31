@@ -37,6 +37,13 @@
 /// @ingroup eigenut
 namespace eigenut
 {
+    inline void getRandomPositiveDefinititeMatrix(Eigen::MatrixXd &M, const std::size_t size)
+    {
+        M.setRandom(size, size);
+        M = M.transpose()*M + Eigen::MatrixXd::Identity(size, size);
+    }
+
+
     /**
      * @brief Unset matrix (initialize to NaN)
      *

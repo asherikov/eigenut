@@ -11,12 +11,12 @@
 */
 
 #include <eigenut/all.h>
-#include "gtest/gtest.h"
+#include "utf_common.h"
 
 
 namespace
 {
-    class BlockMatrixTests : public ::testing::Test
+    class BlockMatrixTests
     {
         protected:
             void createMatrix00_00()
@@ -114,32 +114,25 @@ namespace
     };
 
 
-    TEST_F(BlockMatrixTests, MatrixCreation)
+    BOOST_FIXTURE_TEST_CASE(Creation, BlockMatrixTests)
     {
-        ASSERT_NO_THROW(createMatrix00_00());
-        ASSERT_THROW(createMatrix00_01(), std::runtime_error);
-        ASSERT_NO_THROW(createMatrix00_02());
-        ASSERT_NO_THROW(createMatrix00_03());
-        ASSERT_THROW(createMatrix00_04(), std::runtime_error);
-        ASSERT_NO_THROW(createMatrix00_05());
+        BOOST_REQUIRE_NO_THROW(createMatrix00_00());
+        BOOST_REQUIRE_THROW(createMatrix00_01(), std::runtime_error);
+        BOOST_REQUIRE_NO_THROW(createMatrix00_02());
+        BOOST_REQUIRE_NO_THROW(createMatrix00_03());
+        BOOST_REQUIRE_THROW(createMatrix00_04(), std::runtime_error);
+        BOOST_REQUIRE_NO_THROW(createMatrix00_05());
     }
 
 
-    TEST_F(BlockMatrixTests, MatrixManipulation)
+    BOOST_FIXTURE_TEST_CASE(Manipulation, BlockMatrixTests)
     {
-        ASSERT_NO_THROW(manipulateDynamicMatrix00_00());
-        ASSERT_NO_THROW(manipulateDynamicMatrix00_01());
-        ASSERT_NO_THROW(manipulateDynamicMatrix02_00());
-        ASSERT_THROW(manipulateDynamicMatrix02_01(), std::runtime_error);
-        ASSERT_NO_THROW(manipulateDynamicMatrix02_02());
-        ASSERT_NO_THROW(manipulateDynamicMatrix01_00());
-        ASSERT_NO_THROW(manipulateDynamicMatrix01_01());
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix00_00());
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix00_01());
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix02_00());
+        BOOST_REQUIRE_THROW(manipulateDynamicMatrix02_01(), std::runtime_error);
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix02_02());
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix01_00());
+        BOOST_REQUIRE_NO_THROW(manipulateDynamicMatrix01_01());
     }
-}
-
-
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

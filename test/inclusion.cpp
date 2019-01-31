@@ -8,17 +8,10 @@
 */
 
 #include <eigenut/all.h>
-#include <gtest/gtest.h>
+#include "utf_common.h"
 
 
-TEST(Inclusion, Inclusion)
+BOOST_AUTO_TEST_CASE(Inclusion)
 {
-    EXPECT_TRUE(true);
-}
-
-
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    BOOST_REQUIRE(true);
 }

@@ -11,12 +11,12 @@
 */
 
 #include <eigenut/all.h>
-#include "gtest/gtest.h"
+#include "utf_common.h"
 
 
 namespace
 {
-    TEST(ConcatenateMatrixTests, ConcatenateVertically)
+    BOOST_AUTO_TEST_CASE(ConcatenateMatrixVertically)
     {
         // empty matrix
         Eigen::MatrixXd a;
@@ -45,11 +45,11 @@ namespace
         Eigen::MatrixXd result;
 
         eigenut::concatenateMatricesVertically(result, matrices);
-        ASSERT_TRUE(result.isApprox(match,  1e-8));
+        BOOST_REQUIRE(result.isApprox(match,  1e-8));
     }
 
 
-    TEST(ConcatenateMatrixTests, ConcatenateHorizontallyTwo)
+    BOOST_AUTO_TEST_CASE(ConcatenateMatrixHorizontallyTwo)
     {
         // empty matrix
         Eigen::MatrixXd a;
@@ -70,14 +70,14 @@ namespace
         Eigen::MatrixXd result;
 
         eigenut::concatenateMatricesHorizontally(result, a, b);
-        ASSERT_TRUE(result.isApprox(b,  1e-8));
+        BOOST_REQUIRE(result.isApprox(b,  1e-8));
 
         eigenut::concatenateMatricesHorizontally(result, b, c);
-        ASSERT_TRUE(result.isApprox(match,  1e-8));
+        BOOST_REQUIRE(result.isApprox(match,  1e-8));
     }
 
 
-    TEST(ConcatenateMatrixTests, ConcatenateHorizontallyThree)
+    BOOST_AUTO_TEST_CASE(ConcatenateMatrixHorizontallyThree)
     {
         // empty matrix
         Eigen::MatrixXd a;
@@ -104,16 +104,9 @@ namespace
         Eigen::MatrixXd result;
 
         eigenut::concatenateMatricesHorizontally(result, a, b, c);
-        ASSERT_TRUE(result.isApprox(b,  1e-8));
+        BOOST_REQUIRE(result.isApprox(b,  1e-8));
 
         eigenut::concatenateMatricesHorizontally(result, b, d, e);
-        ASSERT_TRUE(result.isApprox(match,  1e-8));
+        BOOST_REQUIRE(result.isApprox(match,  1e-8));
     }
-}
-
-
-int main(int argc, char **argv)
-{
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }
