@@ -8,8 +8,8 @@
     @brief
 */
 
-#ifndef H_EIGENUT_BLOCKMATRIX
-#define H_EIGENUT_BLOCKMATRIX
+#ifndef H_@EIGENUT_ID@_BLOCKMATRIX
+#define H_@EIGENUT_ID@_BLOCKMATRIX
 
 /**
  * @defgroup BlockMatrixOperators BlockMatrixOperators
@@ -18,13 +18,13 @@
  * @ingroup eigenut
  */
 
-namespace eigenut
+namespace @EIGENUT_ID_LOWER_CASE@
 {
-#define EIGENUT_CODE_GENERATOR(ClassName, MatrixType) \
+#define @EIGENUT_ID@_CODE_GENERATOR(ClassName, MatrixType) \
         template<   int t_block_rows_num, \
                     int t_block_cols_num, \
                     MatrixSparsityType::Type t_sparsity_type> \
-            class EIGENUT_VISIBILITY_ATTRIBUTE ClassName : \
+            class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE ClassName : \
                 public BlockMatrixBase<MatrixType, t_block_rows_num, t_block_cols_num, t_sparsity_type> \
         {\
             public:\
@@ -45,11 +45,11 @@ namespace eigenut
      * @tparam t_block_cols_num number of columns in one block
      * @tparam t_sparsity_type  sparsity type
      */
-    EIGENUT_CODE_GENERATOR(ConstBlockMatrixInterface, const DefaultDynamicMatrix &)
+    @EIGENUT_ID@_CODE_GENERATOR(ConstBlockMatrixInterface, const DefaultDynamicMatrix &)
 
     /// @copydoc ConstBlockMatrixInterface
-    EIGENUT_CODE_GENERATOR(BlockMatrixInterface, DefaultDynamicMatrix &)
-#undef EIGENUT_CODE_GENERATOR
+    @EIGENUT_ID@_CODE_GENERATOR(BlockMatrixInterface, DefaultDynamicMatrix &)
+#undef @EIGENUT_ID@_CODE_GENERATOR
 
 
     // ===========================================================================
@@ -57,10 +57,10 @@ namespace eigenut
     // ===========================================================================
 
 
-#define EIGENUT_CODE_GENERATOR(class_name, sparsity_type) \
+#define @EIGENUT_ID@_CODE_GENERATOR(class_name, sparsity_type) \
         template<   int t_block_rows_num,\
                     int t_block_cols_num>\
-            class EIGENUT_VISIBILITY_ATTRIBUTE class_name \
+            class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE class_name \
                 : public BlockKroneckerProductBase< const DefaultDynamicMatrix &, \
                                                     t_block_rows_num, \
                                                     t_block_cols_num, \
@@ -85,12 +85,12 @@ namespace eigenut
      * @tparam t_block_rows_num number of rows in one block
      * @tparam t_block_cols_num number of columns in one block
      */
-    EIGENUT_CODE_GENERATOR(GenericBlockKroneckerProduct, MatrixSparsityType::NONE)
+    @EIGENUT_ID@_CODE_GENERATOR(GenericBlockKroneckerProduct, MatrixSparsityType::NONE)
     /// @copydoc GenericBlockMatrix
-    EIGENUT_CODE_GENERATOR(DiagonalBlockKroneckerProduct, MatrixSparsityType::DIAGONAL)
+    @EIGENUT_ID@_CODE_GENERATOR(DiagonalBlockKroneckerProduct, MatrixSparsityType::DIAGONAL)
     /// @copydoc GenericBlockMatrix
-    EIGENUT_CODE_GENERATOR(LeftLowerTriangularBlockKroneckerProduct, MatrixSparsityType::LEFT_LOWER_TRIANGULAR)
-#undef EIGENUT_CODE_GENERATOR
+    @EIGENUT_ID@_CODE_GENERATOR(LeftLowerTriangularBlockKroneckerProduct, MatrixSparsityType::LEFT_LOWER_TRIANGULAR)
+#undef @EIGENUT_ID@_CODE_GENERATOR
 
 
     // ===========================================================================
@@ -98,7 +98,7 @@ namespace eigenut
     // ===========================================================================
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const Eigen::Map<   const EIGENUT_DYNAMIC_MATRIX(t_Scalar),\
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const Eigen::Map<   const @EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar),\
                                                                                 t_alignment, \
                                                                                 t_Stride >, \
                                                             t_block_rows_num, t_block_cols_num, t_sparsity_type>
@@ -115,18 +115,18 @@ namespace eigenut
                 int t_block_rows_num,
                 int t_block_cols_num,
                 MatrixSparsityType::Type t_sparsity_type>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixMap : public EIGENUT_PARENT_CLASS_SHORTHAND
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixMap : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixMap)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixMap)
 
 
 
@@ -138,7 +138,7 @@ namespace eigenut
              * @return block Kronecker product
              */
             BlockKroneckerProductBase<
-                                const Eigen::Map<   const EIGENUT_DYNAMIC_MATRIX(t_Scalar),
+                                const Eigen::Map<   const @EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar),
                                                     t_alignment,
                                                     t_Stride >,
                                 t_block_rows_num,
@@ -147,7 +147,7 @@ namespace eigenut
                 getBlockKroneckerProduct (const std::ptrdiff_t       identity_size) const
             {
                 return(BlockKroneckerProductBase<
-                        const Eigen::Map<   const EIGENUT_DYNAMIC_MATRIX(t_Scalar),
+                        const Eigen::Map<   const @EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar),
                                             t_alignment,
                                             t_Stride >,
                         t_block_rows_num,
@@ -158,7 +158,7 @@ namespace eigenut
                                             ((t_block_cols_num > 0) ? MatrixBlockSizeType::UNDEFINED : block_cols_num_)));
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
     // ===========================================================================
@@ -166,7 +166,7 @@ namespace eigenut
     // ===========================================================================
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<DefaultDynamicMatrix, t_block_rows_num, t_block_cols_num, t_sparsity_type>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<DefaultDynamicMatrix, t_block_rows_num, t_block_cols_num, t_sparsity_type>
     /**
      * @brief Block matrix, the raw matrix is stored inside (not a reference).
      *
@@ -177,18 +177,18 @@ namespace eigenut
     template<   int t_block_rows_num,
                 int t_block_cols_num,
                 MatrixSparsityType::Type t_sparsity_type>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrix : public EIGENUT_PARENT_CLASS_SHORTHAND
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrix : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrix)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrix)
 
 
             typedef BlockMatrixMap< DefaultScalar,
@@ -202,7 +202,7 @@ namespace eigenut
             SelectionMap    selectRowInBlocks(const std::ptrdiff_t row_in_a_block)
             {
                 return (SelectionMap(eigenut::selectRows(matrix_,
-                                                        EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                        @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
                                                         row_in_a_block),
                                      MatrixBlockSizeType::UNDEFINED,
                                      ((t_block_rows_num > 0) ? MatrixBlockSizeType::UNDEFINED : block_rows_num_)));
@@ -234,17 +234,17 @@ namespace eigenut
                                             ((t_block_cols_num > 0) ? MatrixBlockSizeType::UNDEFINED : block_cols_num_)));
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
     // ===========================================================================
     // ===========================================================================
     // ===========================================================================
 
-#define EIGENUT_CODE_GENERATOR(class_name, sparsity_type) \
+#define @EIGENUT_ID@_CODE_GENERATOR(class_name, sparsity_type) \
         template<   int t_block_rows_num,\
                     int t_block_cols_num>\
-        class EIGENUT_VISIBILITY_ATTRIBUTE class_name : public BlockMatrix<t_block_rows_num, t_block_cols_num, sparsity_type> \
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE class_name : public BlockMatrix<t_block_rows_num, t_block_cols_num, sparsity_type> \
         {\
             public:\
                 class_name( const std::ptrdiff_t  block_rows_num = MatrixBlockSizeType::UNDEFINED, \
@@ -265,12 +265,12 @@ namespace eigenut
      * @tparam t_block_rows_num number of rows in one block
      * @tparam t_block_cols_num number of columns in one block
      */
-    EIGENUT_CODE_GENERATOR(GenericBlockMatrix, MatrixSparsityType::NONE)
+    @EIGENUT_ID@_CODE_GENERATOR(GenericBlockMatrix, MatrixSparsityType::NONE)
     /// @copydoc GenericBlockMatrix
-    EIGENUT_CODE_GENERATOR(DiagonalBlockMatrix, MatrixSparsityType::DIAGONAL)
+    @EIGENUT_ID@_CODE_GENERATOR(DiagonalBlockMatrix, MatrixSparsityType::DIAGONAL)
     /// @copydoc GenericBlockMatrix
-    EIGENUT_CODE_GENERATOR(LeftLowerTriangularBlockMatrix, MatrixSparsityType::LEFT_LOWER_TRIANGULAR)
-#undef EIGENUT_CODE_GENERATOR
+    @EIGENUT_ID@_CODE_GENERATOR(LeftLowerTriangularBlockMatrix, MatrixSparsityType::LEFT_LOWER_TRIANGULAR)
+#undef @EIGENUT_ID@_CODE_GENERATOR
 
 } // eigenut
 

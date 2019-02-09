@@ -19,15 +19,7 @@ namespace eigenut
 {
 }
 
-#include <Eigen/Dense>
-
-#include "cpput_config.h"
-#include "exception.h"
-#include "visibility.h"
-
-//#define EIGENUT_ASSERT(condition, message)
-#define EIGENUT_VISIBILITY_ATTRIBUTE            EIGENUT_LOCAL
-//#define EIGENUT_ENABLE_EIGENTYPE_DETECTION
+#include "eigenut_config.h"
 
 #include "types.h"
 #include "misc.h"

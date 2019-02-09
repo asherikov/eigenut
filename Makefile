@@ -6,7 +6,7 @@ default:
 
 clean:
 	rm -Rf ${BUILD_DIR}
-	rm -Rf include/cpput/cpput_config.h
+	ls include/eigenut/*.in | sed 's/\.in$$//g' | xargs rm -f
 
 build:
 	git submodule update --init
@@ -17,6 +17,9 @@ build:
 test: build
 	cd build; ${MAKE} ${MAKE_FLAGS} test
 
+gitignore:
+	echo "build" > .gitignore
+	ls include/eigenut/*.in | sed 's/\.in$$//g' >> .gitignore
 
 #----------------------------------------------
 # utils
@@ -35,5 +38,6 @@ updateutils:
 	git show remotes/cmakeut/master:cmake/cmakeut_add_cpp_test.cmake        > cmake/cmakeut_add_cpp_test.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake      > cmake/cmakeut_compiler_flags.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_detect_func_macro.cmake   > cmake/cmakeut_detect_func_macro.cmake
+	git show remotes/cmakeut/master:cmake/cmakeut_list_filenames.cmake      > cmake/cmakeut_list_filenames.cmake
 
 .PHONY: build test

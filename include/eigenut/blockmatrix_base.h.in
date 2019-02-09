@@ -8,10 +8,10 @@
     @brief
 */
 
-#ifndef H_EIGENUT_BLOCKMATRIX_BASE
-#define H_EIGENUT_BLOCKMATRIX_BASE
+#ifndef H_@EIGENUT_ID@_BLOCKMATRIX_BASE
+#define H_@EIGENUT_ID@_BLOCKMATRIX_BASE
 
-namespace eigenut
+namespace @EIGENUT_ID_LOWER_CASE@
 {
     /**
      * @brief Type modifier (drop reference &)
@@ -80,21 +80,21 @@ namespace eigenut
             };
     };
 
-#define EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM   ((t_block_rows_num > 0) ? t_block_rows_num : block_rows_num_)
-#define EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM   ((t_block_cols_num > 0) ? t_block_cols_num : block_cols_num_)
+#define @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM   ((t_block_rows_num > 0) ? t_block_rows_num : block_rows_num_)
+#define @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM   ((t_block_cols_num > 0) ? t_block_cols_num : block_cols_num_)
 
-#define     EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(class_name) \
+#define     @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(class_name) \
             class_name (const std::ptrdiff_t  block_rows_num = MatrixBlockSizeType::UNDEFINED,\
                         const std::ptrdiff_t  block_cols_num = MatrixBlockSizeType::UNDEFINED)\
-                : EIGENUT_PARENT_CLASS_SHORTHAND(block_rows_num, block_cols_num) {};\
+                : @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(block_rows_num, block_cols_num) {};\
             class_name (const DecayedRawMatrix & matrix,\
                         const std::ptrdiff_t  block_rows_num = MatrixBlockSizeType::UNDEFINED,\
                         const std::ptrdiff_t  block_cols_num = MatrixBlockSizeType::UNDEFINED)\
-                : EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num) {};\
+                : @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num) {};\
             class_name (DecayedRawMatrix & matrix,\
                         const std::ptrdiff_t  block_rows_num = MatrixBlockSizeType::UNDEFINED,\
                         const std::ptrdiff_t  block_cols_num = MatrixBlockSizeType::UNDEFINED)\
-                : EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num) {};
+                : @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num) {};
 
     /**
      * @brief Block matrix basic functions
@@ -106,7 +106,7 @@ namespace eigenut
     template<   typename t_MatrixType,
                 int t_block_rows_num,
                 int t_block_cols_num>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixAccessBase
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixAccessBase
     {
         public:
             /// Raw matrix without 'const' and '&'
@@ -116,10 +116,10 @@ namespace eigenut
             typedef typename DecayedRawMatrix::Scalar           Scalar;
 
             /// Shorthand for Eigen block
-            typedef Eigen::Block< EIGENUT_DYNAMIC_MATRIX( Scalar ) > DynamicMatrixBlock;
+            typedef Eigen::Block< @EIGENUT_ID@_DYNAMIC_MATRIX( Scalar ) > DynamicMatrixBlock;
 
             /// Shorthand for Eigen block
-            typedef const Eigen::Block< const EIGENUT_DYNAMIC_MATRIX( Scalar ) > ConstDynamicMatrixBlock;
+            typedef const Eigen::Block< const @EIGENUT_ID@_DYNAMIC_MATRIX( Scalar ) > ConstDynamicMatrixBlock;
 
 
         public:
@@ -149,14 +149,14 @@ namespace eigenut
              */
             std::ptrdiff_t getNumberOfRows() const
             {
-                return(EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM * num_blocks_vert_);
+                return(@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM * num_blocks_vert_);
             }
 
 
             /// @copydoc getNumberOfRows()
             std::ptrdiff_t getNumberOfColumns() const
             {
-                return(EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM * num_blocks_hor_);
+                return(@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM * num_blocks_hor_);
             }
 
 
@@ -184,8 +184,8 @@ namespace eigenut
             void resize(    const std::ptrdiff_t   num_blocks_vert,
                             const std::ptrdiff_t   num_blocks_hor)
             {
-                matrix_.resize( num_blocks_vert*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                num_blocks_hor*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM);
+                matrix_.resize( num_blocks_vert*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                num_blocks_hor*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM);
                 finalize();
             }
 
@@ -199,8 +199,8 @@ namespace eigenut
             void setZero(   const std::ptrdiff_t   num_blocks_vert,
                             const std::ptrdiff_t   num_blocks_hor)
             {
-                matrix_.setZero(num_blocks_vert*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                num_blocks_hor*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM);
+                matrix_.setZero(num_blocks_vert*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                num_blocks_hor*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM);
                 finalize();
             }
 
@@ -242,10 +242,10 @@ namespace eigenut
                                         const std::ptrdiff_t index_num_rows)
             {
                 return (DynamicMatrixBlock (matrix_.derived(),
-                                            index_row_first * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                            index_col       * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                            index_num_rows  * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                            EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM));
+                                            index_row_first * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                            index_col       * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                            index_num_rows  * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                            @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM));
             }
 
 
@@ -272,10 +272,10 @@ namespace eigenut
                                             const std::ptrdiff_t index_num_rows) const
             {
                 return (ConstDynamicMatrixBlock (   matrix_.derived(),
-                                                    index_row_first * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                    index_col       * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                                    index_num_rows  * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                    EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM));
+                                                    index_row_first * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                    index_col       * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                                    index_num_rows  * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                    @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM));
             }
 
 
@@ -301,10 +301,10 @@ namespace eigenut
                                     const std::ptrdiff_t index_num_cols)
             {
                 return (DynamicMatrixBlock( matrix_.derived(),
-                                            index_row       * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                            index_col_first * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                            EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                            index_num_cols  * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM));
+                                            index_row       * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                            index_col_first * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                            @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                            index_num_cols  * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM));
             }
 
 
@@ -331,10 +331,10 @@ namespace eigenut
                                         const std::ptrdiff_t index_num_cols) const
             {
                 return (ConstDynamicMatrixBlock(matrix_.derived(),
-                                                index_row       * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                index_col_first * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                                EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                index_num_cols  * EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM));
+                                                index_row       * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                index_col_first * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                                @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                index_num_cols  * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM));
             }
 
 
@@ -367,7 +367,7 @@ namespace eigenut
              */
             DecayedRawMatrix selectRowInBlocksAsMatrix(const std::ptrdiff_t row_in_a_block)
             {
-                return(selectRows(matrix_, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, row_in_a_block));
+                return(selectRows(matrix_, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, row_in_a_block));
             }
 
 
@@ -378,14 +378,14 @@ namespace eigenut
              */
             std::ptrdiff_t  getBlockRowsNum() const
             {
-                return(EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM);
+                return(@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM);
             }
 
 
             /// @copydoc getBlockRowsNum
             std::ptrdiff_t  getBlockColsNum() const
             {
-                return(EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM);
+                return(@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM);
             }
 
 
@@ -397,9 +397,9 @@ namespace eigenut
             void setBlockSize(  const std::ptrdiff_t  block_rows_num,
                                 const std::ptrdiff_t  block_cols_num)
             {
-                EIGENUT_ASSERT(  (MatrixBlockSizeType::DYNAMIC != t_block_rows_num) || (block_rows_num > 0),
+                @EIGENUT_ID@_ASSERT(  (MatrixBlockSizeType::DYNAMIC != t_block_rows_num) || (block_rows_num > 0),
                                     "Block dimension must be strictly positive.");
-                EIGENUT_ASSERT(  (MatrixBlockSizeType::DYNAMIC != t_block_cols_num) || (block_cols_num > 0),
+                @EIGENUT_ID@_ASSERT(  (MatrixBlockSizeType::DYNAMIC != t_block_cols_num) || (block_cols_num > 0),
                                     "Block dimension must be strictly positive.");
                 initializeBlockSize(block_rows_num, block_cols_num);
                 finalize();
@@ -482,7 +482,7 @@ namespace eigenut
                 }
                 else
                 {
-                    EIGENUT_ASSERT(  (MatrixBlockSizeType::UNDEFINED == block_rows_num),
+                    @EIGENUT_ID@_ASSERT(  (MatrixBlockSizeType::UNDEFINED == block_rows_num),
                                         "Matrix block is static, but nonzero dimension size is passed to the constructor.");
                     block_rows_num_ = t_block_rows_num;
                 }
@@ -493,7 +493,7 @@ namespace eigenut
                 }
                 else
                 {
-                    EIGENUT_ASSERT(  (MatrixBlockSizeType::UNDEFINED == block_cols_num),
+                    @EIGENUT_ID@_ASSERT(  (MatrixBlockSizeType::UNDEFINED == block_cols_num),
                                         "Matrix block is static, but nonzero dimension size is passed to the constructor.");
                     block_cols_num_ = t_block_cols_num;
                 }
@@ -508,31 +508,31 @@ namespace eigenut
                 if (    (t_block_rows_num != MatrixBlockSizeType::DYNAMIC)
                         || (block_rows_num_ != MatrixBlockSizeType::UNDEFINED))
                 {
-                    EIGENUT_ASSERT(  (EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM > 0),
+                    @EIGENUT_ID@_ASSERT(  (@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM > 0),
                                         "Wrong number of rows.");
 
-                    EIGENUT_ASSERT(  (matrix_.rows() % EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM == 0),
+                    @EIGENUT_ID@_ASSERT(  (matrix_.rows() % @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM == 0),
                                         "Vertical dimension of the matrix is not a multiple of the corresponding block dimension.");
 
-                    num_blocks_vert_ = matrix_.rows() / EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM;
+                    num_blocks_vert_ = matrix_.rows() / @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM;
                 }
 
                 if (    (t_block_cols_num != MatrixBlockSizeType::DYNAMIC)
                         || (block_cols_num_ != MatrixBlockSizeType::UNDEFINED))
                 {
-                    EIGENUT_ASSERT(  (EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM > 0),
+                    @EIGENUT_ID@_ASSERT(  (@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM > 0),
                                         "Wrong number of cols.");
 
-                    EIGENUT_ASSERT(  (matrix_.cols() % EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM == 0),
+                    @EIGENUT_ID@_ASSERT(  (matrix_.cols() % @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM == 0),
                                         "Horizontal dimension of the matrix is not a multiple of the corresponding block dimension.");
 
-                    num_blocks_hor_ = matrix_.cols() / EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM;
+                    num_blocks_hor_ = matrix_.cols() / @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM;
                 }
             }
     };
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
     /**
      * @brief Extra layer for handling of specific sizes of blocks using partial
      * template specialization
@@ -544,20 +544,20 @@ namespace eigenut
     template<   typename t_MatrixType,
                 int t_block_rows_num,
                 int t_block_cols_num>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase : public EIGENUT_PARENT_CLASS_SHORTHAND
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix DecayedRawMatrix;
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::Scalar           Scalar;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::Scalar           Scalar;
 
 
             /// Shorthand for Eigen block
-            typedef Eigen::Block<   EIGENUT_DYNAMIC_MATRIX( Scalar ),
+            typedef Eigen::Block<   @EIGENUT_ID@_DYNAMIC_MATRIX( Scalar ),
                                     t_block_rows_num,
                                     t_block_cols_num> StaticMatrixBlock;
 
             /// Shorthand for Eigen block
-            typedef const Eigen::Block< const EIGENUT_DYNAMIC_MATRIX( Scalar ),
+            typedef const Eigen::Block< const @EIGENUT_ID@_DYNAMIC_MATRIX( Scalar ),
                                         t_block_rows_num,
                                         t_block_cols_num> ConstStaticMatrixBlock;
 
@@ -609,7 +609,7 @@ namespace eigenut
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
 
 
             /**
@@ -618,16 +618,16 @@ namespace eigenut
              */
             ~BlockMatrixSizeSpecificBase() {}
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
-#define EIGENUT_CODE_GENERATOR\
+#define @EIGENUT_ID@_CODE_GENERATOR\
         public:\
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix        DecayedRawMatrix;\
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DynamicMatrixBlock      DynamicMatrixBlock;\
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::ConstDynamicMatrixBlock ConstDynamicMatrixBlock;\
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix        DecayedRawMatrix;\
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DynamicMatrixBlock      DynamicMatrixBlock;\
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::ConstDynamicMatrixBlock ConstDynamicMatrixBlock;\
             DynamicMatrixBlock  operator()( const std::ptrdiff_t index_row,\
                                             const std::ptrdiff_t index_col)\
             {\
@@ -657,13 +657,13 @@ namespace eigenut
                 return ((*this)(index,index));\
             }\
         protected:\
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;\
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;\
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;\
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;\
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;\
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;\
             ~BlockMatrixSizeSpecificBase() {}\
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)\
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)\
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
                                                                     MatrixBlockSizeType::DYNAMIC, \
                                                                     MatrixBlockSizeType::DYNAMIC>
 
@@ -676,17 +676,17 @@ namespace eigenut
      * @tparam t_block_cols_num number of columns in one block
      */
     template<typename t_MatrixType>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
                                                                             MatrixBlockSizeType::DYNAMIC,
                                                                             MatrixBlockSizeType::DYNAMIC>
-            : public EIGENUT_PARENT_CLASS_SHORTHAND
+            : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
-        EIGENUT_CODE_GENERATOR
+        @EIGENUT_ID@_CODE_GENERATOR
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
                                                                     t_block_rows_num, \
                                                                     MatrixBlockSizeType::DYNAMIC>
     /**
@@ -698,17 +698,17 @@ namespace eigenut
      * @tparam t_block_cols_num number of columns in one block
      */
     template<typename t_MatrixType, int t_block_rows_num>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
                                                                             t_block_rows_num,
                                                                             MatrixBlockSizeType::DYNAMIC>
-            : public EIGENUT_PARENT_CLASS_SHORTHAND
+            : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
-        EIGENUT_CODE_GENERATOR
+        @EIGENUT_ID@_CODE_GENERATOR
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND   BlockMatrixAccessBase<  t_MatrixType, \
                                                                     MatrixBlockSizeType::DYNAMIC, \
                                                                     t_block_cols_num>
     /**
@@ -720,18 +720,18 @@ namespace eigenut
      * @tparam t_block_cols_num number of columns in one block
      */
     template<typename t_MatrixType, int t_block_cols_num>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<  t_MatrixType,
                                                                             MatrixBlockSizeType::DYNAMIC,
                                                                             t_block_cols_num>
-            : public EIGENUT_PARENT_CLASS_SHORTHAND
+            : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
-        EIGENUT_CODE_GENERATOR
+        @EIGENUT_ID@_CODE_GENERATOR
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
-#undef EIGENUT_CODE_GENERATOR
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_CODE_GENERATOR
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND     BlockMatrixAccessBase<t_MatrixType, 1, 1>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND     BlockMatrixAccessBase<t_MatrixType, 1, 1>
     /**
      * @brief Extra layer for handling of specific sizes of blocks using partial
      * template specialization
@@ -742,11 +742,11 @@ namespace eigenut
      * @tparam t_MatrixType     type of raw matrix, e.g. Eigen::MatrixXd or a reference to it
      */
     template<typename t_MatrixType>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<t_MatrixType, 1, 1> : public EIGENUT_PARENT_CLASS_SHORTHAND
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixSizeSpecificBase<t_MatrixType, 1, 1> : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::Scalar              Scalar;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::Scalar              Scalar;
 
 
             /**
@@ -793,7 +793,7 @@ namespace eigenut
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
 
 
             /**
@@ -803,9 +803,9 @@ namespace eigenut
             ~BlockMatrixSizeSpecificBase() {}
 
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixSizeSpecificBase)
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
     // ===========================================================================
@@ -834,7 +834,7 @@ namespace eigenut
     // ===========================================================================
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
     /**
      * @brief Base class of a block matrix
      *
@@ -847,16 +847,16 @@ namespace eigenut
                 int t_block_rows_num,
                 int t_block_cols_num,
                 MatrixSparsityType::Type t_sparsity_type>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixBase : public EIGENUT_PARENT_CLASS_SHORTHAND
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixBase : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
 
 
             /**
@@ -875,10 +875,10 @@ namespace eigenut
                 result.noalias() = matrix_*matrix;
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
     /**
      * @brief Base class of a block matrix
      *
@@ -890,19 +890,19 @@ namespace eigenut
     template<   typename t_MatrixType,
                 int t_block_rows_num,
                 int t_block_cols_num >
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
                                                             t_block_rows_num,
                                                             t_block_cols_num,
-                                                            MatrixSparsityType::DIAGONAL > : public EIGENUT_PARENT_CLASS_SHORTHAND
+                                                            MatrixSparsityType::DIAGONAL > : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfRows;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::row;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfRows;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::row;
 
 
 
@@ -919,7 +919,7 @@ namespace eigenut
                 void multiplyRight (Eigen::PlainObjectBase<t_DerivedOutput>     & result,
                                     const Eigen::MatrixBase<t_DerivedInput>     & matrix) const
             {
-                EIGENUT_ASSERT(matrix.rows() == getNumberOfColumns(), "Size mismatch.");
+                @EIGENUT_ID@_ASSERT(matrix.rows() == getNumberOfColumns(), "Size mismatch.");
 
                 std::ptrdiff_t num_cols = matrix.cols();
 
@@ -927,10 +927,10 @@ namespace eigenut
 
                 for(std::ptrdiff_t i = 0; i < num_blocks_hor_; ++i)
                 {
-                    result.block(i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, 0, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, num_cols).noalias() =
+                    result.block(i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, num_cols).noalias() =
                         (*this)(i)
                         *
-                        matrix.block(i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, 0, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, num_cols);
+                        matrix.block(i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, num_cols);
                 }
             }
 
@@ -949,7 +949,7 @@ namespace eigenut
                 void multiplyLeft(  Eigen::PlainObjectBase<t_DerivedOutput> &result,
                                     const Eigen::DenseBase<t_DerivedInput>       &matrix) const
             {
-                EIGENUT_ASSERT(matrix.cols() == getNumberOfRows(), "Size mismatch.");
+                @EIGENUT_ID@_ASSERT(matrix.cols() == getNumberOfRows(), "Size mismatch.");
 
                 std::ptrdiff_t num_rows = matrix.rows();
 
@@ -957,8 +957,8 @@ namespace eigenut
 
                 for(std::ptrdiff_t i = 0; i < num_blocks_vert_; ++i)
                 {
-                    result.block(0, i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, num_rows, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM).noalias() =
-                        matrix.block(0, i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, num_rows, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM)
+                    result.block(0, i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, num_rows, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM).noalias() =
+                        matrix.block(0, i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, num_rows, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM)
                         *
                         (*this)(i);
                 }
@@ -990,11 +990,11 @@ namespace eigenut
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -1004,13 +1004,13 @@ namespace eigenut
             ~BlockMatrixBase() {}
 
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, t_block_rows_num, t_block_cols_num>
     /**
      * @brief Base class of a block matrix
      *
@@ -1022,19 +1022,19 @@ namespace eigenut
     template<   typename t_MatrixType,
                 int t_block_rows_num,
                 int t_block_cols_num >
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
                                                             t_block_rows_num,
                                                             t_block_cols_num,
-                                                            MatrixSparsityType::LEFT_LOWER_TRIANGULAR> : public EIGENUT_PARENT_CLASS_SHORTHAND
+                                                            MatrixSparsityType::LEFT_LOWER_TRIANGULAR> : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfRows;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::row;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfRows;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::row;
 
 
 
@@ -1053,7 +1053,7 @@ namespace eigenut
             {
                 // slower
                 /*
-                EIGENUT_ASSERT(static_cast<std::ptrdiff_t>(eigen_matrix.rows()) == getNumberOfColumns(), "Size mismatch.");
+                @EIGENUT_ID@_ASSERT(static_cast<std::ptrdiff_t>(eigen_matrix.rows()) == getNumberOfColumns(), "Size mismatch.");
 
                 std::ptrdiff_t num_cols = eigen_matrix.cols();
 
@@ -1062,10 +1062,10 @@ namespace eigenut
 
                 for(std::ptrdiff_t i = 0; i < num_blocks_hor_; ++i)
                 {
-                    result.block(i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, 0, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, num_cols).noalias() =
+                    result.block(i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, num_cols).noalias() =
                         row(i, 0, i+1)
                         *
-                        eigen_matrix.block(0, 0, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*(i+1), num_cols);
+                        eigen_matrix.block(0, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*(i+1), num_cols);
                 }
                 */
                 result.noalias() = matrix_*matrix;
@@ -1073,11 +1073,11 @@ namespace eigenut
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -1087,13 +1087,13 @@ namespace eigenut
             ~BlockMatrixBase() {}
 
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, 1, 1>
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND     BlockMatrixSizeSpecificBase<t_MatrixType, 1, 1>
     /**
      * @brief Base class of a block matrix
      *
@@ -1103,19 +1103,19 @@ namespace eigenut
      * @tparam t_sparsity_type  sparsity type
      */
     template<   typename t_MatrixType >
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockMatrixBase<  t_MatrixType,
                                                             1,
                                                             1,
-                                                            MatrixSparsityType::LEFT_LOWER_TRIANGULAR> : public EIGENUT_PARENT_CLASS_SHORTHAND
+                                                            MatrixSparsityType::LEFT_LOWER_TRIANGULAR> : public @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfRows;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::row;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfRows;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::getNumberOfColumns;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::row;
 
 
 
@@ -1132,7 +1132,7 @@ namespace eigenut
                 void multiplyRight (Eigen::PlainObjectBase<t_DerivedOutput> & result,
                                     const Eigen::MatrixBase<t_DerivedInput> & matrix) const
             {
-                EIGENUT_ASSERT(matrix.rows() == getNumberOfColumns(), "Size mismatch.");
+                @EIGENUT_ID@_ASSERT(matrix.rows() == getNumberOfColumns(), "Size mismatch.");
 
                 // https://eigen.tuxfamily.org/dox-devel/TopicTemplateKeyword.html
                 result.noalias() = matrix_.template triangularView<Eigen::Lower>()  * matrix;
@@ -1140,11 +1140,11 @@ namespace eigenut
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -1154,9 +1154,9 @@ namespace eigenut
             ~BlockMatrixBase() {}
 
 
-            EIGENUT_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
+            @EIGENUT_ID@_DEFINE_BLOCK_MATRIX_CONSTRUCTORS(BlockMatrixBase)
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
 
@@ -1189,15 +1189,15 @@ namespace eigenut
                 int t_block_cols_num,
                 MatrixSparsityType::Type t_sparsity_type,
                 class t_Derived>
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_MatrixType>::Type::Scalar )
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_MatrixType>::Type::Scalar )
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockMatrixBase<  t_MatrixType,
                                                 t_block_rows_num,
                                                 t_block_cols_num,
                                                 t_sparsity_type> & bm,
                         const Eigen::MatrixBase<t_Derived> & matrix)
     {
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_MatrixType>::Type::Scalar ) result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_MatrixType>::Type::Scalar ) result;
         bm.multiplyRight(result, matrix);
         return (result);
     }
@@ -1227,15 +1227,15 @@ namespace eigenut
                 MatrixSparsityType::Type t_sparsity_type,
                 int t_rows_in,
                 int t_cols_in>
-        EIGENUT_DYNAMIC_MATRIX( typename Eigen::DenseBase<t_Derived>::Scalar )
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename Eigen::DenseBase<t_Derived>::Scalar )
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const Eigen::MatrixBase<t_Derived> & eigen_matrix,
                         const BlockMatrixBase<  t_MatrixType,
                                                 t_block_rows_num,
                                                 t_block_cols_num,
                                                 t_sparsity_type> & bm)
     {
-        EIGENUT_DYNAMIC_MATRIX( typename Eigen::DenseBase<t_Derived>::Scalar ) result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename Eigen::DenseBase<t_Derived>::Scalar ) result;
         bm.multiplyLeft(result, eigen_matrix);
         return (result);
     }
@@ -1266,8 +1266,8 @@ namespace eigenut
                 MatrixSparsityType::Type t_left_sparsity_type,
                 typename t_right_MatrixType,
                 int t_right_block_cols_num>
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockMatrixBase<  t_left_MatrixType,
                                                 t_left_block_rows_num,
                                                 t_left_block_cols_num,
@@ -1277,7 +1277,7 @@ namespace eigenut
                                                 t_right_block_cols_num,
                                                 MatrixSparsityType::DIAGONAL> & right)
     {
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar ) result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar ) result;
         right.multiplyLeft(result, left.getRaw());
         return (result);
     }
@@ -1308,8 +1308,8 @@ namespace eigenut
                 typename t_right_MatrixType,
                 int t_right_block_cols_num,
                 MatrixSparsityType::Type t_right_sparsity_type>
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockMatrixBase<  t_left_MatrixType,
                                                 t_left_block_rows_num,
                                                 t_left_block_cols_num,
@@ -1319,7 +1319,7 @@ namespace eigenut
                                                 t_right_block_cols_num,
                                                 t_right_sparsity_type> & right)
     {
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )   result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )   result;
         left.multiplyRight(result, right);
         return (result);
     }

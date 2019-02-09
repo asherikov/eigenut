@@ -9,10 +9,10 @@
 */
 
 
-#ifndef H_EIGENUT_CROSS_PRODUCT
-#define H_EIGENUT_CROSS_PRODUCT
+#ifndef H_@EIGENUT_ID@_CROSS_PRODUCT
+#define H_@EIGENUT_ID@_CROSS_PRODUCT
 
-namespace eigenut
+namespace @EIGENUT_ID_LOWER_CASE@
 {
     /**
      * @brief Skew-symmetric cross product matrix
@@ -112,7 +112,7 @@ namespace eigenut
         Eigen::Matrix<  eigenut::DefaultScalar,
                         Eigen::DenseBase<t_Derived>::RowsAtCompileTime,
                         3>
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const Eigen::MatrixBase<t_Derived> & left,
                         const CrossProductMatrix & right)
     {
@@ -139,7 +139,7 @@ namespace eigenut
         Eigen::Matrix<  eigenut::DefaultScalar,
                         3,
                         Eigen::DenseBase<t_Derived>::ColsAtCompileTime>
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const CrossProductMatrix & left,
                         const Eigen::MatrixBase<t_Derived> & right)
     {

@@ -8,12 +8,12 @@
     @brief
 */
 
-#ifndef H_EIGENUT_BLOCKMATRIX_KRONECKER
-#define H_EIGENUT_BLOCKMATRIX_KRONECKER
+#ifndef H_@EIGENUT_ID@_BLOCKMATRIX_KRONECKER
+#define H_@EIGENUT_ID@_BLOCKMATRIX_KRONECKER
 
-namespace eigenut
+namespace @EIGENUT_ID_LOWER_CASE@
 {
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
                                                             t_block_rows_num, t_block_cols_num, t_sparsity_type>
     /**
      * @brief Represents block kronecker product "Identity(size) [X] Matrix".
@@ -27,21 +27,21 @@ namespace eigenut
                 int t_block_rows_num,
                 int t_block_cols_num,
                 MatrixSparsityType::Type t_sparsity_type>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase : protected EIGENUT_PARENT_CLASS_SHORTHAND
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase : protected @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         private:
             std::ptrdiff_t     identity_size_;
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::multiplyRight;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::multiplyRight;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -66,10 +66,10 @@ namespace eigenut
 
                         for(std::ptrdiff_t k = 0; k < identity_size_; ++k)
                         {
-                            out.block(  (primary_block_row + k)*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                        (primary_block_col + k)*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                        EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                        EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM) = (*this)(i, j);
+                            out.block(  (primary_block_row + k)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                        (primary_block_col + k)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                        @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                        @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM) = (*this)(i, j);
                         }
                     }
                 }
@@ -77,7 +77,7 @@ namespace eigenut
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
 
             /**
@@ -101,11 +101,11 @@ namespace eigenut
                                                             t_dbm_block_cols_num,
                                                             MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
 
@@ -120,10 +120,10 @@ namespace eigenut
                     {
                         for (std::ptrdiff_t j = 0; j < num_blocks_vert_; ++j)
                         {
-                            indices.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM) =
-                                Eigen::VectorXi::LinSpaced( EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                            i*matrix_.rows() + j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                            i*matrix_.rows() + (j+1)*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM - 1);
+                            indices.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM) =
+                                Eigen::VectorXi::LinSpaced( @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                            i*matrix_.rows() + j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                            i*matrix_.rows() + (j+1)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM - 1);
                         }
                     }
 
@@ -137,7 +137,7 @@ namespace eigenut
                             result.block(i*matrix_.rows(), dbm_block_cols*j, matrix_.rows(), dbm_block_cols).noalias() =
                                 column(j)
                                 *
-                                dbm(j).block(i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, 0, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, dbm_block_cols);
+                                dbm(j).block(i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, dbm_block_cols);
                         }
                     }
 
@@ -157,11 +157,11 @@ namespace eigenut
                                                         t_dbm_block_cols_num,
                                                         MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
 
@@ -171,7 +171,7 @@ namespace eigenut
                                                 t_dbm_block_cols_num,
                                                 MatrixSparsityType::NONE >
                     result_bmi( result,
-                                t_block_rows_num == MatrixBlockSizeType::DYNAMIC ? EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM : MatrixBlockSizeType::UNDEFINED,
+                                t_block_rows_num == MatrixBlockSizeType::DYNAMIC ? @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM : MatrixBlockSizeType::UNDEFINED,
                                 t_dbm_block_cols_num == MatrixBlockSizeType::DYNAMIC ? dbm.getBlockRowsNum() : MatrixBlockSizeType::UNDEFINED);
 
 
@@ -186,9 +186,9 @@ namespace eigenut
                             result_bmi(i*identity_size_ + k, j).noalias() =
                                 (*this)(i,j)
                                 *
-                                dbm(j).block(   k*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                dbm(j).block(   k*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
                                                 0,
-                                                EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                                @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
                                                 dbm_block_cols);
                         }
                     }
@@ -216,8 +216,8 @@ namespace eigenut
                 void multiplyRight( Eigen::PlainObjectBase<t_DerivedOutput>      &result,
                                     const Eigen::Matrix<t_Scalar, t_vector_size, 1, t_vector_options> & vector) const
             {
-                EIGENUT_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  result_part;
-                EIGENUT_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  vector_part;
+                @EIGENUT_ID@_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  result_part;
+                @EIGENUT_ID@_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  vector_part;
 
 
                 result.resize(identity_size_ * matrix_.rows());
@@ -228,16 +228,16 @@ namespace eigenut
                 {
                     for (std::ptrdiff_t j = 0; j < num_blocks_hor_; ++j)
                     {
-                        vector_part.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM) =
-                            vector.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM);
+                        vector_part.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM) =
+                            vector.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM);
                     }
 
                     result_part.noalias() = matrix_ * vector_part;
 
                     for (std::ptrdiff_t j = 0; j < num_blocks_vert_; ++j)
                     {
-                        result.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM) =
-                            result_part.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM);
+                        result.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM) =
+                            result_part.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM);
                     }
                 }
             }
@@ -305,18 +305,18 @@ namespace eigenut
                                         const std::ptrdiff_t identity_size = 1,
                                         const std::ptrdiff_t block_rows_num = MatrixBlockSizeType::UNDEFINED,
                                         const std::ptrdiff_t block_cols_num = MatrixBlockSizeType::UNDEFINED) :
-                EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
+                @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
             {
-                EIGENUT_ASSERT(  identity_size > 1,
+                @EIGENUT_ID@_ASSERT(  identity_size > 1,
                                     "Identity size cannot be less than 2.");
                 identity_size_ = identity_size;
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
                                                             t_block_rows_num, t_block_cols_num, MatrixSparsityType::LEFT_LOWER_TRIANGULAR>
     /**
      * @brief Represents block kronecker product "Identity(size) [X] Matrix",
@@ -329,25 +329,25 @@ namespace eigenut
     template<   class t_MatrixType,
                 int t_block_rows_num,
                 int t_block_cols_num>
-    class EIGENUT_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType,
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType,
                                                                     t_block_rows_num,
                                                                     t_block_cols_num,
                                                                     MatrixSparsityType::LEFT_LOWER_TRIANGULAR>
-        : protected EIGENUT_PARENT_CLASS_SHORTHAND
+        : protected @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         private:
             std::ptrdiff_t     identity_size_;
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::multiplyRight;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::multiplyRight;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -372,10 +372,10 @@ namespace eigenut
 
                         for(std::ptrdiff_t k = 0; k < identity_size_; ++k)
                         {
-                            out.block(  (primary_block_row + k)*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                        (primary_block_col + k)*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM,
-                                        EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                        EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM) = (*this)(i, j);
+                            out.block(  (primary_block_row + k)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                        (primary_block_col + k)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM,
+                                        @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                        @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM) = (*this)(i, j);
                         }
                     }
                 }
@@ -383,7 +383,7 @@ namespace eigenut
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
 
             /**
@@ -407,11 +407,11 @@ namespace eigenut
                                                          t_dbm_block_cols_num,
                                                          MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
                 result.setZero(identity_size_ * matrix_.rows(), dbm.getNumberOfColumns());
@@ -425,10 +425,10 @@ namespace eigenut
                     {
                         for (std::ptrdiff_t j = 0; j < num_blocks_vert_; ++j)
                         {
-                            indices.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM) =
-                                Eigen::VectorXi::LinSpaced( EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                            i*matrix_.rows() + j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM,
-                                                            i*matrix_.rows() + (j+1)*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM - 1);
+                            indices.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM) =
+                                Eigen::VectorXi::LinSpaced( @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                            i*matrix_.rows() + j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
+                                                            i*matrix_.rows() + (j+1)*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM - 1);
                         }
                     }
 
@@ -439,10 +439,10 @@ namespace eigenut
                     {
                         for (std::ptrdiff_t j = 0; j < num_blocks_hor_; ++j)
                         {
-                            result.block(i*matrix_.rows() + j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, dbm_block_cols*j, (num_blocks_vert_ - j) * EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, dbm_block_cols).noalias() =
+                            result.block(i*matrix_.rows() + j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, dbm_block_cols*j, (num_blocks_vert_ - j) * @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, dbm_block_cols).noalias() =
                                 column(j, j)
                                 *
-                                dbm(j).block(i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, 0, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, dbm_block_cols);
+                                dbm(j).block(i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, 0, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, dbm_block_cols);
                         }
                     }
 
@@ -469,8 +469,8 @@ namespace eigenut
                 void multiplyRight( Eigen::PlainObjectBase<t_DerivedOutput>      &result,
                                     const Eigen::Matrix<t_Scalar, t_vector_size, 1, t_vector_options> & vector) const
             {
-                EIGENUT_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  result_part;
-                EIGENUT_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  vector_part;
+                @EIGENUT_ID@_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  result_part;
+                @EIGENUT_ID@_DYNAMIC_VECTOR(typename Eigen::PlainObjectBase<t_DerivedOutput>::Scalar)  vector_part;
 
 
                 result.resize(identity_size_ * matrix_.rows());
@@ -481,16 +481,16 @@ namespace eigenut
                 {
                     for (std::ptrdiff_t j = 0; j < num_blocks_hor_; ++j)
                     {
-                        vector_part.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM) =
-                            vector.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_COLS_NUM);
+                        vector_part.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM) =
+                            vector.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_COLS_NUM);
                     }
 
                     result_part.noalias() = matrix_ * vector_part;
 
                     for (std::ptrdiff_t j = 0; j < num_blocks_vert_; ++j)
                     {
-                        result.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM) =
-                            result_part.segment(j*EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM, EIGENUT_BLOCKMATRIX_BLOCK_ROWS_NUM);
+                        result.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM*identity_size_ + i*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM) =
+                            result_part.segment(j*@EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM, @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM);
                     }
                 }
             }
@@ -557,18 +557,18 @@ namespace eigenut
                                         const std::ptrdiff_t identity_size = 1,
                                         const std::ptrdiff_t block_rows_num = MatrixBlockSizeType::UNDEFINED,
                                         const std::ptrdiff_t block_cols_num = MatrixBlockSizeType::UNDEFINED) :
-                EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
+                @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
             {
-                EIGENUT_ASSERT(  identity_size > 1,
+                @EIGENUT_ID@_ASSERT(  identity_size > 1,
                                     "Identity size cannot be less than 2.");
                 identity_size_ = identity_size;
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
                                                             1, 1, t_sparsity_type>
     /**
      * @brief Represents block kronecker product "Identity(size) [X] Matrix",
@@ -579,22 +579,22 @@ namespace eigenut
      */
     template<   class t_MatrixType,
                 MatrixSparsityType::Type t_sparsity_type>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType, 1, 1, t_sparsity_type>
-            : protected EIGENUT_PARENT_CLASS_SHORTHAND
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType, 1, 1, t_sparsity_type>
+            : protected @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         private:
             std::ptrdiff_t     identity_size_;
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::multiplyRight;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::multiplyRight;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -628,7 +628,7 @@ namespace eigenut
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
 
             /**
@@ -652,11 +652,11 @@ namespace eigenut
                                                             t_dbm_block_cols_num,
                                                             MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
 
@@ -674,7 +674,7 @@ namespace eigenut
                         for (std::ptrdiff_t i = 0; i < num_blocks_vert_; ++i)
                         {
                             // dbm.getNumberOfBlocksHorizontal() = num_blocks_hor_
-                            result_bmi(i,j) = EIGENUT_PARENT_CLASS_SHORTHAND::operator()(i,j) * dbm(j);
+                            result_bmi(i,j) = @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator()(i,j) * dbm(j);
                         }
                     }
                 }
@@ -707,7 +707,7 @@ namespace eigenut
                     for (std::ptrdiff_t i = 0; i < num_blocks_vert_; ++i)
                     {
                         result.segment(i*identity_size_, identity_size_)
-                            +=  EIGENUT_PARENT_CLASS_SHORTHAND::operator()(i,j)
+                            +=  @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator()(i,j)
                                 *
                                 vector.segment(j*identity_size_, identity_size_);
                     }
@@ -777,17 +777,17 @@ namespace eigenut
                                         const std::ptrdiff_t identity_size = 1,
                                         const std::ptrdiff_t block_rows_num = MatrixBlockSizeType::UNDEFINED,
                                         const std::ptrdiff_t block_cols_num = MatrixBlockSizeType::UNDEFINED) :
-                EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
+                @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
             {
-                EIGENUT_ASSERT(  identity_size > 1,
+                @EIGENUT_ID@_ASSERT(  identity_size > 1,
                                     "Identity size cannot be less than 2.");
                 identity_size_ = identity_size;
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
-#define EIGENUT_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
+#define @EIGENUT_ID@_PARENT_CLASS_SHORTHAND BlockMatrixBase<  const typename TypeWithoutConst<t_MatrixType>::Type, \
                                                             1, 1, MatrixSparsityType::LEFT_LOWER_TRIANGULAR>
     /**
      * @brief Represents block kronecker product "Identity(size) [X] Matrix",
@@ -796,22 +796,22 @@ namespace eigenut
      * @tparam t_MatrixType     type of raw matrix
      */
     template<class t_MatrixType>
-        class EIGENUT_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType, 1, 1, MatrixSparsityType::LEFT_LOWER_TRIANGULAR>
-            : protected EIGENUT_PARENT_CLASS_SHORTHAND
+        class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE BlockKroneckerProductBase<t_MatrixType, 1, 1, MatrixSparsityType::LEFT_LOWER_TRIANGULAR>
+            : protected @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
     {
         private:
             std::ptrdiff_t     identity_size_;
 
 
         protected:
-            using EIGENUT_PARENT_CLASS_SHORTHAND::operator();
-            using EIGENUT_PARENT_CLASS_SHORTHAND::matrix_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::multiplyRight;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::column;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_rows_num_;
-            using EIGENUT_PARENT_CLASS_SHORTHAND::block_cols_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator();
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::matrix_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_hor_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::num_blocks_vert_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::multiplyRight;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::column;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_rows_num_;
+            using @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::block_cols_num_;
 
 
             /**
@@ -845,7 +845,7 @@ namespace eigenut
 
 
         public:
-            typedef typename EIGENUT_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
+            typedef typename @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::DecayedRawMatrix    DecayedRawMatrix;
 
 
             /**
@@ -869,11 +869,11 @@ namespace eigenut
                                                              t_dbm_block_cols_num,
                                                              MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
 
@@ -892,7 +892,7 @@ namespace eigenut
                         for (std::ptrdiff_t i = j; i < num_blocks_vert_; ++i)
                         {
                             // dbm.getNumberOfBlocksHorizontal() = num_blocks_hor_
-                            result_bmi(i,j) = EIGENUT_PARENT_CLASS_SHORTHAND::operator()(i,j) * dbm(j);
+                            result_bmi(i,j) = @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator()(i,j) * dbm(j);
                         }
                     }
                 }
@@ -921,11 +921,11 @@ namespace eigenut
                                                              t_dbm_block_cols_num,
                                                              MatrixSparsityType::DIAGONAL> &dbm) const
             {
-                EIGENUT_ASSERT(dbm.getBlockRowsNum() == identity_size_,
+                @EIGENUT_ID@_ASSERT(dbm.getBlockRowsNum() == identity_size_,
                                     "Block sizes do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_ == dbm.getNumberOfBlocksVertical(),
                                     "Numbers of blocks do not match.");
-                EIGENUT_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
+                @EIGENUT_ID@_ASSERT(num_blocks_hor_*identity_size_ == dbm.getNumberOfRows(),
                                     "Sizes of matrices do not match.");
 
 
@@ -942,7 +942,7 @@ namespace eigenut
                     {
                         for (std::ptrdiff_t i = j; i < dbm.getNumberOfBlocksVertical(); ++i)
                         {
-                            result_bmi(i,j) = dbm(i) * EIGENUT_PARENT_CLASS_SHORTHAND::operator()(i,j);
+                            result_bmi(i,j) = dbm(i) * @EIGENUT_ID@_PARENT_CLASS_SHORTHAND::operator()(i,j);
                         }
                     }
                 }
@@ -1010,14 +1010,14 @@ namespace eigenut
                                         const std::ptrdiff_t identity_size = 1,
                                         const std::ptrdiff_t block_rows_num = MatrixBlockSizeType::UNDEFINED,
                                         const std::ptrdiff_t block_cols_num = MatrixBlockSizeType::UNDEFINED) :
-                EIGENUT_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
+                @EIGENUT_ID@_PARENT_CLASS_SHORTHAND(matrix, block_rows_num, block_cols_num)
             {
-                EIGENUT_ASSERT(  identity_size > 1,
+                @EIGENUT_ID@_ASSERT(  identity_size > 1,
                                     "Identity size cannot be less than 2.");
                 identity_size_ = identity_size;
             }
     };
-#undef EIGENUT_PARENT_CLASS_SHORTHAND
+#undef @EIGENUT_ID@_PARENT_CLASS_SHORTHAND
 
 
     // ===========================================================================
@@ -1054,8 +1054,8 @@ namespace eigenut
                 typename                    t_Scalar,
                 int                         t_vector_size,
                 int                         t_vector_options >
-        EIGENUT_DYNAMIC_VECTOR(typename TypeDecayed<t_MatrixType>::Type::Scalar)
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_VECTOR(typename TypeDecayed<t_MatrixType>::Type::Scalar)
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockKroneckerProductBase<t_MatrixType,
                                                         t_block_rows_num,
                                                         t_block_cols_num,
@@ -1065,7 +1065,7 @@ namespace eigenut
                                             1,
                                             t_vector_options> & vector)
     {
-        EIGENUT_DYNAMIC_VECTOR(typename TypeDecayed<t_MatrixType>::Type::Scalar) result;
+        @EIGENUT_ID@_DYNAMIC_VECTOR(typename TypeDecayed<t_MatrixType>::Type::Scalar) result;
         bm.multiplyRight(result, vector);
         return (result);
     }
@@ -1096,8 +1096,8 @@ namespace eigenut
                 int              t_right_block_rows_num,
                 int              t_right_block_cols_num,
                 MatrixSparsityType::Type    t_right_sparsity_type>
-        EIGENUT_DYNAMIC_MATRIX(typename TypeDecayed<t_left_MatrixType>::Type::Scalar)
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX(typename TypeDecayed<t_left_MatrixType>::Type::Scalar)
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockKroneckerProductBase<t_left_MatrixType,
                                                         t_left_block_rows_num,
                                                         t_left_block_cols_num,
@@ -1107,7 +1107,7 @@ namespace eigenut
                                                 t_right_block_cols_num,
                                                 t_right_sparsity_type> & right)
     {
-        EIGENUT_DYNAMIC_MATRIX(typename TypeDecayed<t_left_MatrixType>::Type::Scalar)  result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX(typename TypeDecayed<t_left_MatrixType>::Type::Scalar)  result;
         left.multiplyRight(result, right);
         return (result);
     }
@@ -1140,8 +1140,8 @@ namespace eigenut
                 int              t_right_block_rows_num,
                 int              t_right_block_cols_num,
                 MatrixSparsityType::Type    t_right_sparsity_type>
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar )
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const BlockMatrixBase<  t_left_MatrixType,
                                                 t_left_block_rows_num,
                                                 t_left_block_cols_num,
@@ -1151,7 +1151,7 @@ namespace eigenut
                                                         t_right_block_cols_num,
                                                         t_right_sparsity_type> & right)
     {
-        EIGENUT_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar ) result;
+        @EIGENUT_ID@_DYNAMIC_MATRIX( typename TypeDecayed<t_left_MatrixType>::Type::Scalar ) result;
         right.multiplyLeft(result, left);
         return (result);
     }

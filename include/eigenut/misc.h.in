@@ -10,8 +10,8 @@
 */
 
 
-#ifndef H_EIGENUT_MISC
-#define H_EIGENUT_MISC
+#ifndef H_@EIGENUT_ID@_MISC
+#define H_@EIGENUT_ID@_MISC
 
 #include <vector>
 
@@ -38,7 +38,7 @@
  */
 
 /// @ingroup eigenut
-namespace eigenut
+namespace @EIGENUT_ID_LOWER_CASE@
 {
     inline void getRandomPositiveDefinititeMatrix(Eigen::MatrixXd &M, const std::size_t size)
     {
@@ -80,7 +80,7 @@ namespace eigenut
      * @attention Only the left lower triangular part of the result is initialized.
      */
     template<class t_DerivedOutput, class t_DerivedInput>
-        void EIGENUT_VISIBILITY_ATTRIBUTE
+        void @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             getATA( Eigen::PlainObjectBase<t_DerivedOutput> &result,
                     const Eigen::DenseBase<t_DerivedInput> &A)
     {
@@ -107,7 +107,7 @@ namespace eigenut
      * @attention Only the left lower triangular part of the result is initialized.
      */
     template<class t_DerivedOutput, class t_DerivedInput>
-        void EIGENUT_VISIBILITY_ATTRIBUTE
+        void @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             getATA( Eigen::PlainObjectBase<t_DerivedOutput> &result,
                     const Eigen::DenseBase<t_DerivedInput> &A,
                     const std::ptrdiff_t offset,
@@ -138,7 +138,7 @@ namespace eigenut
      * @attention Only the left lower triangular part of the result is initialized.
      */
     template<class t_DerivedOutput, class t_DerivedInput>
-        void EIGENUT_VISIBILITY_ATTRIBUTE
+        void @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             addATA( Eigen::DenseBase<t_DerivedOutput> &result,
                     const Eigen::DenseBase<t_DerivedInput> &A)
     {
@@ -163,7 +163,7 @@ namespace eigenut
      * @attention Only the left lower triangular part of the result is initialized.
      */
     template<class t_DerivedOutput, class t_DerivedInput>
-        void EIGENUT_VISIBILITY_ATTRIBUTE
+        void @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             addATA( Eigen::DenseBase<t_DerivedOutput> &result,
                     const Eigen::DenseBase<t_DerivedInput> &A,
                     const std::ptrdiff_t offset)
@@ -188,7 +188,7 @@ namespace eigenut
      * @param[in,out] matrix
      */
     template<class t_Derived>
-        void EIGENUT_VISIBILITY_ATTRIBUTE
+        void @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             convertLLTtoSymmetric(Eigen::PlainObjectBase<t_Derived> &matrix)
     {
         std::ptrdiff_t num_el = matrix.cols();
@@ -217,7 +217,7 @@ namespace eigenut
         inline Eigen::Matrix<   typename Eigen::MatrixBase<t_DerivedMatrix>::Scalar,
                                 Eigen::MatrixBase<t_DerivedMatrix>::RowsAtCompileTime,
                                 Eigen::MatrixBase<t_DerivedMatrix>::ColsAtCompileTime>
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             transform(  const Eigen::MatrixBase<t_DerivedMatrix>        &matrix,
                         const Eigen::MatrixBase<t_DerivedRotation>      &rotation,
                         const Eigen::MatrixBase<t_DerivedTranslation>   &translation)
@@ -243,14 +243,14 @@ namespace eigenut
                 int t_rows,
                 int t_cols,
                 int t_flags>
-        EIGENUT_DYNAMIC_MATRIX(t_Scalar)
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar)
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             makeBlockDiagonal(const std::vector<Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> > &input_matrices)
     {
         switch (input_matrices.size())
         {
             case 0:
-                return (EIGENUT_DYNAMIC_MATRIX(t_Scalar)());
+                return (@EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar)());
 
             case 1:
                 return (input_matrices[0]);
@@ -265,7 +265,7 @@ namespace eigenut
                     row_size += input_matrices[i].rows();
                     col_size += input_matrices[i].cols();
                 }
-                EIGENUT_DYNAMIC_MATRIX(t_Scalar) output;
+                @EIGENUT_ID@_DYNAMIC_MATRIX(t_Scalar) output;
                 output.setZero(row_size, col_size);
 
                 // Add in the input matrices
@@ -299,22 +299,22 @@ namespace eigenut
      * @return matrix with each input element as a block in the diagonal
      */
     template<class t_DerivedInput>
-        EIGENUT_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar)
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar)
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             makeBlockDiagonal(  const Eigen::DenseBase<t_DerivedInput> &input_matrix,
                                 const std::ptrdiff_t num_copies)
     {
         switch (num_copies)
         {
             case 0:
-                return (EIGENUT_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar)());
+                return (@EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar)());
 
             case 1:
                 return (input_matrix);
 
             default:
                 // Initialize the output diagonal matrix
-                EIGENUT_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar) output;
+                @EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_DerivedInput>::Scalar) output;
 
                 output.setZero(num_copies * input_matrix.rows(),
                                num_copies * input_matrix.cols());
@@ -348,7 +348,7 @@ namespace eigenut
                 int t_rows,
                 int t_cols,
                 int t_flags>
-        void  EIGENUT_VISIBILITY_ATTRIBUTE
+        void  @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             concatenateMatricesVertically(  Eigen::PlainObjectBase<t_DerivedOutput> &result,
                                             const std::vector<Eigen::Matrix<t_Scalar, t_rows, t_cols, t_flags> > &matrices)
     {
@@ -378,7 +378,7 @@ namespace eigenut
             number_of_cols = nonempty_matrices[0].cols();
             for (std::size_t i = 0; i < number_of_matrices; ++i)
             {
-                EIGENUT_ASSERT(number_of_cols == nonempty_matrices[i].cols(), "Inconsistent size of input matrices.");
+                @EIGENUT_ID@_ASSERT(number_of_cols == nonempty_matrices[i].cols(), "Inconsistent size of input matrices.");
                 total_number_of_rows += nonempty_matrices[i].rows();
             }
 
@@ -412,7 +412,7 @@ namespace eigenut
     template<   class t_DerivedOutput,
                 class t_DerivedInput1,
                 class t_DerivedInput2>
-        void  EIGENUT_VISIBILITY_ATTRIBUTE
+        void  @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             concatenateMatricesHorizontally(
                 Eigen::PlainObjectBase<t_DerivedOutput> &result,
                 const Eigen::DenseBase<t_DerivedInput1> &matrix1,
@@ -433,7 +433,7 @@ namespace eigenut
                 std::ptrdiff_t  number_of_rows = matrix1.rows();
                 std::ptrdiff_t  number_of_cols = matrix1.cols() + matrix2.cols();
 
-                EIGENUT_ASSERT(number_of_rows == matrix2.rows(), "Inconsistent size of input matrices.");
+                @EIGENUT_ID@_ASSERT(number_of_rows == matrix2.rows(), "Inconsistent size of input matrices.");
 
                 result.resize(number_of_rows, number_of_cols);
                 result << matrix1, matrix2;
@@ -460,7 +460,7 @@ namespace eigenut
                 class t_DerivedInput1,
                 class t_DerivedInput2,
                 class t_DerivedInput3>
-        void  EIGENUT_VISIBILITY_ATTRIBUTE
+        void  @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             concatenateMatricesHorizontally(
                 Eigen::PlainObjectBase<t_DerivedOutput> &result,
                 const Eigen::DenseBase<t_DerivedInput1> &matrix1,
@@ -488,7 +488,7 @@ namespace eigenut
                     std::ptrdiff_t  number_of_rows = matrix1.rows();
                     std::ptrdiff_t  number_of_cols = matrix1.cols() + matrix2.cols() + matrix3.cols();
 
-                    EIGENUT_ASSERT(  (number_of_rows == matrix2.rows())
+                    @EIGENUT_ID@_ASSERT(  (number_of_rows == matrix2.rows())
                                         && (number_of_rows == matrix3.rows()),
                                         "Inconsistent size of input matrices.");
 
@@ -513,11 +513,11 @@ namespace eigenut
      * http://stackoverflow.com/questions/13290395/how-to-remove-a-certain-row-or-column-while-using-eigen-library-c
      */
     template<class t_Derived>
-        void  EIGENUT_VISIBILITY_ATTRIBUTE
+        void  @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             removeRow(  Eigen::PlainObjectBase<t_Derived> & matrix,
                         const std::ptrdiff_t row_to_remove)
     {
-        EIGENUT_ASSERT(row_to_remove <= matrix.rows(), "The index of a removed row is greater than the size of the matrix.");
+        @EIGENUT_ID@_ASSERT(row_to_remove <= matrix.rows(), "The index of a removed row is greater than the size of the matrix.");
 
         std::ptrdiff_t number_of_rows = matrix.rows()-1;
         std::ptrdiff_t number_of_cols = matrix.cols();
@@ -545,11 +545,11 @@ namespace eigenut
      * http://stackoverflow.com/questions/13290395/how-to-remove-a-certain-row-or-column-while-using-eigen-library-c
      */
     template<class t_Derived>
-        void  EIGENUT_VISIBILITY_ATTRIBUTE
+        void  @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             removeColumn(   Eigen::PlainObjectBase<t_Derived> & matrix,
                             const std::ptrdiff_t column_to_remove)
     {
-        EIGENUT_ASSERT(column_to_remove <= matrix.rows(), "The index of a removed column is greater than the size of the matrix.");
+        @EIGENUT_ID@_ASSERT(column_to_remove <= matrix.rows(), "The index of a removed column is greater than the size of the matrix.");
 
         std::ptrdiff_t number_of_rows = matrix.rows();
         std::ptrdiff_t number_of_cols = matrix.cols()-1;
@@ -578,17 +578,17 @@ namespace eigenut
      * @return result of the product
      */
     template<class t_Derived>
-        EIGENUT_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_Derived>::Scalar)
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_Derived>::Scalar)
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             multiplyBlockKroneckerIdentity (const Eigen::DenseBase<t_Derived> & input,
                                             const std::size_t                   input_block_rows,
                                             const std::size_t                   input_block_cols,
                                             const std::size_t                   identity_size)
     {
-        EIGENUT_ASSERT(input.rows() % input_block_rows == 0, "Wrong block size.");
-        EIGENUT_ASSERT(input.cols() % input_block_cols == 0, "Wrong block size.");
+        @EIGENUT_ID@_ASSERT(input.rows() % input_block_rows == 0, "Wrong block size.");
+        @EIGENUT_ID@_ASSERT(input.cols() % input_block_cols == 0, "Wrong block size.");
 
-        EIGENUT_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_Derived>::Scalar)  output;
+        @EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::DenseBase<t_Derived>::Scalar)  output;
 
         std::size_t     num_blocks_vert = input.rows() / input_block_rows;
         std::size_t     num_blocks_hor  = input.cols() / input_block_cols;
@@ -636,15 +636,15 @@ namespace eigenut
      * @return Matrix consisting of selected rows.
      */
     template<class t_Derived>
-        inline Eigen::Map<  const EIGENUT_DYNAMIC_MATRIX(typename Eigen::PlainObjectBase<t_Derived>::Scalar),
+        inline Eigen::Map<  const @EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::PlainObjectBase<t_Derived>::Scalar),
                             Eigen::Unaligned,
                             Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic> >
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             selectRows( const Eigen::PlainObjectBase<t_Derived> &matrix,
                         const std::size_t row_step,
                         const std::size_t first_row = 0)
     {
-        return (EIGENUT_DYNAMIC_MATRIX(typename Eigen::PlainObjectBase<t_Derived>::Scalar)::Map(
+        return (@EIGENUT_ID@_DYNAMIC_MATRIX(typename Eigen::PlainObjectBase<t_Derived>::Scalar)::Map(
                     matrix.data() + first_row,
                     ceil( static_cast<double> (matrix.rows() - first_row)/row_step),
                     matrix.cols(),
@@ -655,10 +655,10 @@ namespace eigenut
     /**
      * @brief Selection matrix
      */
-    class EIGENUT_VISIBILITY_ATTRIBUTE SelectionMatrix
+    class @EIGENUT_ID@_VISIBILITY_ATTRIBUTE SelectionMatrix
     {
         template<class t_Derived>
-        friend Eigen::Map<  const EIGENUT_DYNAMIC_MATRIX( typename Eigen::PlainObjectBase<t_Derived>::Scalar ),
+        friend Eigen::Map<  const @EIGENUT_ID@_DYNAMIC_MATRIX( typename Eigen::PlainObjectBase<t_Derived>::Scalar ),
                             Eigen::Unaligned,
                             Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic> >
             operator*(   const SelectionMatrix &,
@@ -696,10 +696,10 @@ namespace eigenut
      * @return selected rows
      */
     template<class t_Derived>
-        inline Eigen::Map<  const EIGENUT_DYNAMIC_MATRIX( typename Eigen::PlainObjectBase<t_Derived>::Scalar ),
+        inline Eigen::Map<  const @EIGENUT_ID@_DYNAMIC_MATRIX( typename Eigen::PlainObjectBase<t_Derived>::Scalar ),
                             Eigen::Unaligned,
                             Eigen::Stride<Eigen::Dynamic, Eigen::Dynamic> >
-        EIGENUT_VISIBILITY_ATTRIBUTE
+        @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator*(  const SelectionMatrix                   & selector,
                         const Eigen::PlainObjectBase<t_Derived> & matrix)
     {
@@ -707,7 +707,7 @@ namespace eigenut
     }
 
 
-    #ifdef EIGENUT_ENABLE_EIGENTYPE_DETECTION
+    #ifdef @EIGENUT_ID@_ENABLE_EIGENTYPE_DETECTION
         #include <boost/utility/enable_if.hpp>
         #include <boost/mpl/has_xxx.hpp>
         #include <boost/mpl/and.hpp>
@@ -739,9 +739,9 @@ namespace eigenut
         {
         };
 
-        #define EIGENUT_EIGENTYPE_ENABLER_TYPE(DataType)  \
+        #define @EIGENUT_ID@_EIGENTYPE_ENABLER_TYPE(DataType)  \
             const typename boost::enable_if_c< eigenut::is_eigen_type<DataType>::value >::type
-        #define EIGENUT_EIGENTYPE_DISABLER_TYPE(DataType) \
+        #define @EIGENUT_ID@_EIGENTYPE_DISABLER_TYPE(DataType) \
             const typename boost::enable_if_c< !(eigenut::is_eigen_type<DataType>::value) >::type
     #endif
 } // eigenut
