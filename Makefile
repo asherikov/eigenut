@@ -28,13 +28,12 @@ addutils:
 
 updateutils:
 	git fetch --all
+	git rm --ignore-unmatch -rf cpput
+	git read-tree --prefix=cpput -u cpput/master
+	rm -Rf cpput/3rdparty/
 	git show remotes/cmakeut/master:cmake/FindEigen3.cmake                  > cmake/FindEigen3.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_add_cpp_test.cmake        > cmake/cmakeut_add_cpp_test.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_compiler_flags.cmake      > cmake/cmakeut_compiler_flags.cmake
 	git show remotes/cmakeut/master:cmake/cmakeut_detect_func_macro.cmake   > cmake/cmakeut_detect_func_macro.cmake
-	git show remotes/cpput/master:cmake/cpput_config.cmake      > cmake/cpput_config.cmake
-	git show remotes/cpput/master:include/cpput/config.h.in     > include/eigenut/cpput/config.h.in
-	git show remotes/cpput/master:include/cpput/exception.h     > include/eigenut/cpput/exception.h
-	git show remotes/cpput/master:include/cpput/visibility.h    > include/eigenut/cpput/visibility.h
 
 .PHONY: build test

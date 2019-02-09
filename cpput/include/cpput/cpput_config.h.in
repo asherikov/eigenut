@@ -1,5 +1,7 @@
-#pragma once
+#ifndef H_@CPPUT_ID@_CONFIG
+#define H_@CPPUT_ID@_CONFIG
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNCTION_
+#endif
