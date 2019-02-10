@@ -19,7 +19,7 @@ namespace eigenut
 {
 }
 
-#include "eigenut_config.h"
+#include "config.h"
 
 #include "types.h"
 #include "misc.h"

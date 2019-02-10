@@ -110,6 +110,9 @@ cmakeut_list_filenames("${PROJECT_SOURCE_DIR}/include/cpput/" "CPPUT_HEADERS")
 foreach (CPPUT_HEADER ${CPPUT_HEADERS})
     if (${CPPUT_HEADER} MATCHES ".h.in\$")
         string(REPLACE ".h.in" ".h" CPPUT_HEADER_NO_SUFFIX "${CPPUT_HEADER}")
+        if (CPPUT_EMBEDDED)
+            set(CPPUT_HEADER_NO_SUFFIX "cpput_${CPPUT_HEADER_NO_SUFFIX}")
+        endif()
         message("Configuring header ${CPPUT_HEADER} -> ${CPPUT_HEADER_NO_SUFFIX}")
         configure_file( "${PROJECT_SOURCE_DIR}/include/cpput/${CPPUT_HEADER}"
                         "${PROJECT_SOURCE_DIR}/include/cpput/${CPPUT_HEADER_NO_SUFFIX}")
@@ -148,8 +151,10 @@ endif()
 
 if (CPPUT_SELECT_HEADERS)
     foreach (CPPUT_HEADER ${CPPUT_SELECT_HEADERS})
-        install (FILES "${PROJECT_SOURCE_DIR}/include/cpput/${CPPUT_HEADER}"
-                 DESTINATION "${CPPUT_INCLUDE_INSTALL_DESTINATION}/")
+        if (CPPUT_HEADER)
+            install (FILES "${PROJECT_SOURCE_DIR}/include/cpput/${CPPUT_HEADER}"
+                     DESTINATION "${CPPUT_INCLUDE_INSTALL_DESTINATION}/")
+        endif()
     endforeach()
 else()
     install (DIRECTORY "${PROJECT_SOURCE_DIR}/include/cpput/"

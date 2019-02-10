@@ -12,6 +12,7 @@ option(EIGENUT_BUILD_TESTS          "Build tests" ON)
 set(EIGENUT_EMBEDDED_ID             "" CACHE STRING "Overrides header guards, namespace.")
 set(EIGENUT_EMBEDDED_INSTALL_DIR    "" CACHE STRING "Installation destination.")
 set(EIGENUT_SELECT_HEADERS          "" CACHE STRING "Selection a subset of headers for installation.")
+set(CPPUT_SELECT_HEADERS            "" CACHE STRING "Selection a subset of headers for installation.")
 # --------------
 
 
@@ -109,7 +110,7 @@ include_directories (SYSTEM "${EIGEN3_INCLUDE_DIR}")
 option(CPPUT_EMBEDDED "" ON)
 set(CPPUT_EMBEDDED_ID "${EIGENUT_ID}"  CACHE STRING "")
 set(CPPUT_EMBEDDED_INSTALL_DIR "${EIGENUT_INCLUDE_INSTALL_DESTINATION}"  CACHE STRING "")
-set(CPPUT_SELECT_HEADERS "cpput_config.h;exception.h;visibility.h"  CACHE STRING "")
+set(CPPUT_SELECT_HEADERS "cpput_config.h;cpput_exception.h;cpput_visibility.h;${CPPUT_SELECT_HEADERS}"  CACHE STRING "")
 add_subdirectory(cpput)
 get_property(CPPUT_INCLUDE_DIRECTORIES DIRECTORY "cpput" PROPERTY INCLUDE_DIRECTORIES)
 include_directories(${CPPUT_INCLUDE_DIRECTORIES})
@@ -125,6 +126,9 @@ cmakeut_list_filenames("${PROJECT_SOURCE_DIR}/include/eigenut/" "EIGENUT_HEADERS
 foreach (EIGENUT_HEADER ${EIGENUT_HEADERS})
     if (${EIGENUT_HEADER} MATCHES ".h.in\$")
         string(REPLACE ".h.in" ".h" EIGENUT_HEADER_NO_SUFFIX "${EIGENUT_HEADER}")
+        if (EIGENUT_EMBEDDED)
+            set(EIGENUT_HEADER_NO_SUFFIX "eigenut_${EIGENUT_HEADER_NO_SUFFIX}")
+        endif()
         message("Configuring header ${EIGENUT_HEADER} -> ${EIGENUT_HEADER_NO_SUFFIX}")
         configure_file( "${PROJECT_SOURCE_DIR}/include/eigenut/${EIGENUT_HEADER}"
                         "${PROJECT_SOURCE_DIR}/include/eigenut/${EIGENUT_HEADER_NO_SUFFIX}")
@@ -163,8 +167,10 @@ endif()
 
 if (EIGENUT_SELECT_HEADERS)
     foreach (EIGENUT_HEADER ${EIGENUT_SELECT_HEADERS})
-        install (FILES "${PROJECT_SOURCE_DIR}/include/eigenut/${EIGENUT_HEADER}"
-                 DESTINATION "${EIGENUT_INCLUDE_INSTALL_DESTINATION}/")
+        if (EIGENUT_HEADER)
+            install (FILES "${PROJECT_SOURCE_DIR}/include/eigenut/${EIGENUT_HEADER}"
+                     DESTINATION "${EIGENUT_INCLUDE_INSTALL_DESTINATION}/")
+        endif()
     endforeach()
 else()
     install (DIRECTORY "${PROJECT_SOURCE_DIR}/include/eigenut/"

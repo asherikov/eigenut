@@ -1,12 +1,16 @@
 BUILD_DIR?=build
 MAKE_FLAGS?=-j1
 
+INCLUDE_DIR=include/eigenut/
+
 default:
 	@grep -v "^	" Makefile | grep -v "^$$"
 
 clean:
 	rm -Rf ${BUILD_DIR}
-	ls include/eigenut/*.in | sed 's/\.in$$//g' | xargs rm -f
+	ls ${INCLUDE_DIR}/*.in | sed 's/\.in$$//g' | xargs rm -f
+	ls ${INCLUDE_DIR}/*.in | sed 's/\.in$$//g' | sed 's=${INCLUDE_DIR}/=${INCLUDE_DIR}/eigenut_=' | xargs rm -f
+	cd cpput; ${MAKE} clean
 
 build:
 	git submodule update --init
@@ -19,7 +23,8 @@ test: build
 
 gitignore:
 	echo "build" > .gitignore
-	ls include/eigenut/*.in | sed 's/\.in$$//g' >> .gitignore
+	ls ${INCLUDE_DIR}*.in | sed 's/\.in$$//g' >> .gitignore
+	ls ${INCLUDE_DIR}*.in | sed 's/\.in$$//g' | sed 's=${INCLUDE_DIR}=${INCLUDE_DIR}eigenut_=' >> .gitignore
 
 #----------------------------------------------
 # utils

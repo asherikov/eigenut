@@ -12,8 +12,8 @@
 #include <Eigen/Dense>
 
 #include "cpput_config.h"
-#include "exception.h"
-#include "visibility.h"
+#include "cpput_exception.h"
+#include "cpput_visibility.h"
 
 //#define EIGENUT_ASSERT(condition, message)
 #define @EIGENUT_ID@_VISIBILITY_ATTRIBUTE            @EIGENUT_ID@_LOCAL
