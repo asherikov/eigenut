@@ -7,10 +7,9 @@
   <maintainer email="asherikov@yandex.com">Alexander Sherikov</maintainer>
   <license>Apache 2.0</license>
 
-  <url type="website">https://github.com/asherikov/cmakeut</url>
+  <url type="website">https://github.com/asherikov/eigenut</url>
 
-  <!-- <build_depend>cmakeut</build_depend> -->
-  <!-- <build_depend>cpput</build_depend> -->
+  <depend>eigen</depend>
 
   <buildtool_depend>catkin</buildtool_depend>
 </package>
