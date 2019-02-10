@@ -50,6 +50,24 @@ string(TOLOWER "${EIGENUT_ID}" EIGENUT_ID_LOWER_CASE)
 
 
 # --------------
+# Load cmake modules
+# --------------
+include(CMakeParseArguments)
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
+# --------------
+
+
+# --------------
+# Dependencies
+# --------------
+# Eigen
+find_package(Eigen3 REQUIRED)
+include_directories (SYSTEM "${EIGEN3_INCLUDE_DIR}")
+set(Eigen_INCLUDE_DIRS ${EIGEN3_INCLUDE_DIR})
+# --------------
+
+
+# --------------
 # Packaging
 # --------------
 if (EIGENUT_CATKIN_BUILD)
@@ -91,20 +109,8 @@ endif()
 
 
 # --------------
-# Load cmake modules
-# --------------
-include(CMakeParseArguments)
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/")
-# --------------
-
-
-# --------------
 # Dependencies
 # --------------
-# Eigen
-find_package(Eigen3 REQUIRED)
-include_directories (SYSTEM "${EIGEN3_INCLUDE_DIR}")
-
 # cpput
 option(CPPUT_EMBEDDED "" ON)
 set(CPPUT_EMBEDDED_ID "${EIGENUT_ID}"  CACHE STRING "")
