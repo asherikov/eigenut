@@ -1,5 +1,5 @@
-#ifndef H_@CPPUT_ID@_CONFIG
-#define H_@CPPUT_ID@_CONFIG
+#ifndef H_@CPPUT_ID@_CPPUT_CONFIG
+#define H_@CPPUT_ID@_CPPUT_CONFIG
 // __func__ ?
 #cmakedefine CMAKEUT_COMPILER_SUPPORTS_FUNC_
 // __FUNCTION__ ?

@@ -26,6 +26,8 @@ gitignore:
 #----------------------------------------------
 
 addutils:
+	git remote remove cpput
+	git remote remove cmakeut
 	git remote add cmakeut https://github.com/asherikov/cmakeut
 	git remote add cpput https://github.com/asherikov/cpput
 
