@@ -201,7 +201,7 @@ namespace @EIGENUT_ID_LOWER_CASE@
 
             SelectionMap    selectRowInBlocks(const std::ptrdiff_t row_in_a_block)
             {
-                return (SelectionMap(eigenut::selectRows(matrix_,
+                return (SelectionMap(@EIGENUT_ID_LOWER_CASE@::selectRows(matrix_,
                                                         @EIGENUT_ID@_BLOCKMATRIX_BLOCK_ROWS_NUM,
                                                         row_in_a_block),
                                      MatrixBlockSizeType::UNDEFINED,

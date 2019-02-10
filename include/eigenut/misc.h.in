@@ -57,9 +57,9 @@ namespace @EIGENUT_ID_LOWER_CASE@
     template <typename t_Derived>
         void unsetMatrix (Eigen::DenseBase< t_Derived > &matrix)
     {
-        if (std::numeric_limits<eigenut::DefaultScalar>::has_quiet_NaN)
+        if (std::numeric_limits<@EIGENUT_ID_LOWER_CASE@::DefaultScalar>::has_quiet_NaN)
         {
-            matrix.setConstant(std::numeric_limits<eigenut::DefaultScalar>::quiet_NaN());
+            matrix.setConstant(std::numeric_limits<@EIGENUT_ID_LOWER_CASE@::DefaultScalar>::quiet_NaN());
         }
         else
         {
@@ -740,9 +740,9 @@ namespace @EIGENUT_ID_LOWER_CASE@
         };
 
         #define @EIGENUT_ID@_EIGENTYPE_ENABLER_TYPE(DataType)  \
-            const typename boost::enable_if_c< eigenut::is_eigen_type<DataType>::value >::type
+            const typename boost::enable_if_c< @EIGENUT_ID_LOWER_CASE@::is_eigen_type<DataType>::value >::type
         #define @EIGENUT_ID@_EIGENTYPE_DISABLER_TYPE(DataType) \
-            const typename boost::enable_if_c< !(eigenut::is_eigen_type<DataType>::value) >::type
+            const typename boost::enable_if_c< !(@EIGENUT_ID_LOWER_CASE@::is_eigen_type<DataType>::value) >::type
     #endif
 } // eigenut
 

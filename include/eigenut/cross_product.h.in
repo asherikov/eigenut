@@ -20,7 +20,7 @@ namespace @EIGENUT_ID_LOWER_CASE@
     class CrossProductMatrix
     {
         private:
-            eigenut::Vector3  vector_;
+            @EIGENUT_ID_LOWER_CASE@::Vector3  vector_;
 
 
         public:
@@ -29,7 +29,7 @@ namespace @EIGENUT_ID_LOWER_CASE@
              *
              * @param[in] vector 3d vector
              */
-            explicit CrossProductMatrix(const eigenut::Vector3 &vector) : vector_(vector)
+            explicit CrossProductMatrix(const @EIGENUT_ID_LOWER_CASE@::Vector3 &vector) : vector_(vector)
             {
             }
 
@@ -41,9 +41,9 @@ namespace @EIGENUT_ID_LOWER_CASE@
              *
              * @return cross product matrix
              */
-            static eigenut::Matrix3 eval(const eigenut::Vector3 &vector)
+            static @EIGENUT_ID_LOWER_CASE@::Matrix3 eval(const @EIGENUT_ID_LOWER_CASE@::Vector3 &vector)
             {
-                return (   (eigenut::Matrix3() <<    0.0,            -vector.z(),    vector.y(),
+                return (   (@EIGENUT_ID_LOWER_CASE@::Matrix3() <<    0.0,            -vector.z(),    vector.y(),
                                                     vector.z(),     0.0,            -vector.x(),
                                                     -vector.y(),    vector.x(),     0.0).finished() );
             }
@@ -54,7 +54,7 @@ namespace @EIGENUT_ID_LOWER_CASE@
              *
              * @return cross product matrix.
              */
-            eigenut::Matrix3 eval() const
+            @EIGENUT_ID_LOWER_CASE@::Matrix3 eval() const
             {
                 return(eval(vector_));
             }
@@ -109,14 +109,14 @@ namespace @EIGENUT_ID_LOWER_CASE@
      * @return result of multiplication
      */
     template<class t_Derived>
-        Eigen::Matrix<  eigenut::DefaultScalar,
+        Eigen::Matrix<  @EIGENUT_ID_LOWER_CASE@::DefaultScalar,
                         Eigen::DenseBase<t_Derived>::RowsAtCompileTime,
                         3>
         @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const Eigen::MatrixBase<t_Derived> & left,
                         const CrossProductMatrix & right)
     {
-        Eigen::Matrix<  eigenut::DefaultScalar,
+        Eigen::Matrix<  @EIGENUT_ID_LOWER_CASE@::DefaultScalar,
                         Eigen::DenseBase<t_Derived>::RowsAtCompileTime,
                         3>   result;
         right.multiplyLeft(result, left);
@@ -136,14 +136,14 @@ namespace @EIGENUT_ID_LOWER_CASE@
      * @return result of multiplication
      */
     template<class t_Derived>
-        Eigen::Matrix<  eigenut::DefaultScalar,
+        Eigen::Matrix<  @EIGENUT_ID_LOWER_CASE@::DefaultScalar,
                         3,
                         Eigen::DenseBase<t_Derived>::ColsAtCompileTime>
         @EIGENUT_ID@_VISIBILITY_ATTRIBUTE
             operator* ( const CrossProductMatrix & left,
                         const Eigen::MatrixBase<t_Derived> & right)
     {
-        Eigen::Matrix<  eigenut::DefaultScalar,
+        Eigen::Matrix<  @EIGENUT_ID_LOWER_CASE@::DefaultScalar,
                         3,
                         Eigen::DenseBase<t_Derived>::ColsAtCompileTime>   result;
         left.multiplyRight(result, right);
